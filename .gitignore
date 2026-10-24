@@ -1,0 +1,11 @@
+# editor / OS noise
+.DS_Store
+*.swp
+*~
+
+# nothing is built for this plugin (plain JS + plain CSS), kept for safety
+node_modules/
+dist/
+
+# machine-local notes (paths, remote, credentials) never go public
+.local/

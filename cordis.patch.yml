@@ -1,0 +1,3 @@
+- insert:
+    - id: glass-skin
+      name: '@local/glass-skin'
