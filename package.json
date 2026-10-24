@@ -3,6 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "description": "Clear glass skin for the Harness Web UI: aurora or a chosen image canvas, translucent panes, one hairline",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abyss2021/dsh-glass-skin.git"
+  },
+  "homepage": "https://github.com/abyss2021/dsh-glass-skin#readme",
+  "bugs": {
+    "url": "https://github.com/abyss2021/dsh-glass-skin/issues"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "skin",
+    "glass",
+    "web-ui"
+  ],
+  "author": "abyss2021",
   "type": "module",
   "exports": {
     ".": "./index.js",
@@ -17,7 +34,6 @@
     "locale/*.json",
     "icon.svg",
     "README.md",
-    "docs",
     "LICENSE"
   ],
   "dsh": {
