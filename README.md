@@ -1,6 +1,7 @@
 # glass-skin — Harness Web UI 透明玻璃皮肤
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![GitHub](https://img.shields.io/badge/github-abyss2021%2Fdsh--glass--skin-181717)](https://github.com/abyss2021/dsh-glass-skin)
 [![DSH](https://img.shields.io/badge/DSH-0.2.1--rc.2-4c6ef5)](#兼容性)
 [![Build](https://img.shields.io/badge/build-none-success)](#开发)
 
@@ -23,17 +24,41 @@
 
 ## 安装
 
-要求：带 Web 界面的 DSH profile（`dsh web`）。
+要求：带 Web 界面的 DSH profile（`dsh web`），DSH 版本见[兼容性](#兼容性)。
+
+仓库：<https://github.com/abyss2021/dsh-glass-skin>
+
+**命令行（推荐）**
 
 ```bash
-# 装本目录（本地开发）
-dsh plugin --profile web add /path/to/glass-skin
-
-# 卸载
-dsh plugin --profile web remove @local/glass-skin
+dsh plugin --profile web add github:abyss2021/dsh-glass-skin
 ```
 
-`plugin_manager` 用户：`install_bundle`（`target` 指向本目录）安装，`set_bundle enabled:false` 停用，`remove_bundle` 卸载。装好后刷新页面。
+完整地址等价：`git+https://github.com/abyss2021/dsh-glass-skin.git`。安装会自动把插件加进 profile 的 bundle 列表并启用。
+
+**Web 界面**
+
+侧栏 → **插件** → **添加插件**，粘贴 `github:abyss2021/dsh-glass-skin`；装完在插件页启用，刷新页面即可。
+
+**`plugin_manager` 工具**
+
+`install_bundle`，`target` 填 `github:abyss2021/dsh-glass-skin`；`set_bundle enabled:false` 停用，`remove_bundle` 卸载。
+
+**更新和卸载**
+
+```bash
+# 更新：先卸载再装（git 依赖跟随仓库提交）
+dsh plugin --profile web remove @local/glass-skin
+dsh plugin --profile web add github:abyss2021/dsh-glass-skin
+```
+
+**本地开发**
+
+```bash
+dsh plugin --profile web add /path/to/glass-skin   # 目录链接，改 client.js 刷新即生效
+```
+
+> 网络直连 GitHub 慢或被拦时，命令行可改用 SSH 地址：`git+ssh://git@github.com/abyss2021/dsh-glass-skin.git`（需本机 GitHub SSH key），或给 pnpm 配代理。
 
 ## 使用
 
