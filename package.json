@@ -17,7 +17,8 @@
     "locale/*.json",
     "icon.svg",
     "README.md",
-    "assets"
+    "docs",
+    "LICENSE"
   ],
   "dsh": {
     "bundle": {
@@ -30,5 +31,6 @@
         "@deepseek-ai/dsh-client-ui-theme"
       ]
     }
-  }
+  },
+  "license": "MIT"
 }
