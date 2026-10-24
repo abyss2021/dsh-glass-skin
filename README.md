@@ -1,6 +1,7 @@
 # glass-skin — Harness Web UI 透明玻璃皮肤
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![version](https://img.shields.io/badge/version-0.1.0-blue)](CHANGELOG.md)
 [![GitHub](https://img.shields.io/badge/github-abyss2021%2Fdsh--glass--skin-181717)](https://github.com/abyss2021/dsh-glass-skin)
 [![DSH](https://img.shields.io/badge/DSH-0.2.1--rc.2-4c6ef5)](#兼容性)
 [![Build](https://img.shields.io/badge/build-none-success)](#开发)
@@ -144,14 +145,14 @@ dsh plugin --profile web add /path/to/glass-skin   # 目录链接，改 client.j
 
 ```
 glass-skin/
-├── package.json          # 包清单：dsh.bundle / dsh.client / exports
+├── package.json          # 包清单：dsh.bundle / dsh.client / exports；版本号唯一来源
 ├── cordis.patch.yml      # 插入插件行
 ├── index.js              # Host 半侧（空的 apply，皮肤全在客户端）
 ├── client.js             # Client 半侧：token + 样式表 + 设置页
 ├── locale/{zh,en}.json   # 展示用元数据
 ├── docs/                 # 效果图
 ├── icon.svg
-└── README.md / LICENSE
+└── README.md / CHANGELOG.md / LICENSE
 ```
 
 ## 开发
@@ -162,6 +163,11 @@ node --check client.js     # 语法检查
 
 - 本机是**目录链接**安装：改 `client.js` 后刷新页面即可，不需要重装。页面挂着 HMR，通常也会自动换上；没反应就手动刷新。
 - 仓库没有构建步骤，也没有测试套件；视觉验证靠人眼。
+
+## 版本与变更
+
+当前版本 **0.1.0**。版本号遵循语义化版本：`0.x` 期间，适配 DSH 上游的改动按 `MINOR` 发布、修复走
+`PATCH`；兼容基线与发布流程见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 许可
 
