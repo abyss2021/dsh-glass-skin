@@ -24,7 +24,7 @@
 
 ## 安装
 
-要求：带 Web 界面的 DSH profile（`dsh web`），DSH 版本见[兼容性](#兼容性)。
+要求：带 Web 界面的 DSH profile（`dsh web`）；`pnpm` 在 PATH 上（插件安装由它拉包）；DSH 版本见[兼容性](#兼容性)。
 
 仓库：<https://github.com/abyss2021/dsh-glass-skin>
 
