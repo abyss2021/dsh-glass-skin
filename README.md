@@ -59,7 +59,9 @@ dsh plugin --profile web add github:abyss2021/dsh-glass-skin
 dsh plugin --profile web add /path/to/glass-skin   # 目录链接，改 client.js 刷新即生效
 ```
 
-> 网络直连 GitHub 慢或被拦时，命令行可改用 SSH 地址：`git+ssh://git@github.com/abyss2021/dsh-glass-skin.git`（需本机 GitHub SSH key），或给 pnpm 配代理。
+> 直连 `github.com` 慢或被拦时：给 pnpm 配代理；或改用 GitHub tarball 直链（同一仓库快照，含 docs 截图约 5MB）——
+> `dsh plugin --profile web add https://codeload.github.com/abyss2021/dsh-glass-skin/tar.gz/refs/heads/main`
+> （Web 插件页只认 git 地址或 `.tar.gz` 结尾的链接，这条请走命令行。）
 
 ## 使用
 
