@@ -430,6 +430,48 @@ body[data-ds-dark-theme] :has(> [class*='_rightbarCol']):not([data-rightbar-coll
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, var(--glass-panel-line-dark, 0.14));
 }
 
+/* 4e. The Windows desktop shell pins the collapse toggle into the titlebar with
+      a fixed-position rule inside this column ([data-windows-titlebar] .toggle
+      gets position: fixed; left: 12px; top: …). A backdrop-filter is a
+      containing block for fixed descendants, so frosting the column itself
+      re-anchors that toggle to the column and drops it onto the logo row. Paint
+      the pane on a pseudo-element instead: identical blur and gradient, and no
+      positioned descendant is re-anchored. */
+html[data-windows-titlebar] :has(> [class*='_sidebarCol']):not([data-sidebar-collapsed]) [class*='_sidebarCol'],
+html[data-windows-titlebar] :has(> [class*='_rightbarCol']):not([data-rightbar-collapsed]) [class*='_rightbarCol'] {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  background-image: none;
+  box-shadow: none;
+  isolation: isolate;
+  position: relative;
+}
+html[data-windows-titlebar] :has(> [class*='_sidebarCol']):not([data-sidebar-collapsed]) [class*='_sidebarCol']::before,
+html[data-windows-titlebar] :has(> [class*='_rightbarCol']):not([data-rightbar-collapsed]) [class*='_rightbarCol']::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(26px) saturate(170%);
+  backdrop-filter: blur(26px) saturate(170%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, var(--glass-panel-line, 0.75));
+}
+html[data-windows-titlebar] :has(> [class*='_sidebarCol']):not([data-sidebar-collapsed]) [class*='_sidebarCol']::before {
+  background-image: linear-gradient(180deg,
+    var(--glass-left-top, rgba(255, 255, 255, 0.52)),
+    var(--glass-left-bottom, rgba(255, 255, 255, 0.34)));
+}
+html[data-windows-titlebar] :has(> [class*='_rightbarCol']):not([data-rightbar-collapsed]) [class*='_rightbarCol']::before {
+  background-image: linear-gradient(180deg,
+    var(--glass-right-top, rgba(255, 255, 255, 0.52)),
+    var(--glass-right-bottom, rgba(255, 255, 255, 0.34)));
+}
+html[data-windows-titlebar] body[data-ds-dark-theme] :has(> [class*='_sidebarCol']):not([data-sidebar-collapsed]) [class*='_sidebarCol']::before,
+html[data-windows-titlebar] body[data-ds-dark-theme] :has(> [class*='_rightbarCol']):not([data-rightbar-collapsed]) [class*='_rightbarCol']::before {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, var(--glass-panel-line-dark, 0.14));
+}
+
 /* The panel already frosted the photo, so controls inside it go back to the
    native flat look instead of stacking a second chip of glass. */
 body :has(> [class*='_sidebarCol']):not([data-sidebar-collapsed]) [class*='_sidebarCol'] :is(button, [role='treeitem'], [role='tab'], [role='button'], input, a[href]) {

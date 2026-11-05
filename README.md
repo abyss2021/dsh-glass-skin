@@ -1,7 +1,7 @@
 # glass-skin — Harness Web UI 透明玻璃皮肤
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![version](https://img.shields.io/badge/version-0.1.0-blue)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.1.1-blue)](CHANGELOG.md)
 [![GitHub](https://img.shields.io/badge/github-abyss2021%2Fdsh--glass--skin-181717)](https://github.com/abyss2021/dsh-glass-skin)
 [![DSH](https://img.shields.io/badge/DSH-0.2.1--rc.2-4c6ef5)](#兼容性)
 [![Build](https://img.shields.io/badge/build-none-success)](#开发)
@@ -107,6 +107,7 @@ dsh plugin --profile web add /path/to/glass-skin   # 目录链接，改 client.j
 | 3–4 | 框架、侧栏、结构容器全部裸照片；侧栏只留一条 0.5px 细线 |
 | 4b | 去掉侧栏列表顶部的白色渐变淡出 |
 | 4d | 展开的左右侧栏整列磨砂；面板内控件退回原生平面 |
+| 4e | Windows 桌面版把这块磨砂改画在列的 `::before` 上（标题栏里的收起按钮是 `position: fixed`，列上直接加 filter 会把它重新锚定到列顶） |
 | 5 | 输入框卡片磨砂 + 投影 |
 | 6 | 发出的消息气泡与助手步骤磨砂 |
 | 8 | 侧栏 / 底栏 / 顶栏控件的玻璃片 |
@@ -168,7 +169,7 @@ node --check client.js     # 语法检查
 
 ## 版本与变更
 
-当前版本 **0.1.0**。版本号遵循语义化版本：`0.x` 期间，适配 DSH 上游的改动按 `MINOR` 发布、修复走
+当前版本 **0.1.1**。版本号遵循语义化版本：`0.x` 期间，适配 DSH 上游的改动按 `MINOR` 发布、修复走
 `PATCH`；兼容基线与发布流程见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 许可

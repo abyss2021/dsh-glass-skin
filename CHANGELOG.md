@@ -24,6 +24,17 @@
 
 （暂无）
 
+## [0.1.1] - 2026-11-05
+
+### 修复
+
+- **Windows 桌面版收起按钮压住 logo**：桌面版 Windows 布局把收起按钮用 `position: fixed`
+  钉进标题栏（`[data-windows-titlebar] .toggle`），而它的祖先正是第 4d 段加了磨砂的侧边栏列。
+  `backdrop-filter` 会成为 fixed 后代的包含块，按钮的定位基准因此从视口变成列，正好往下掉一个
+  标题栏高度、落在 logo 行上。现在 Windows 标题栏布局下改为把磨砂画在列的 `::before` 上
+  （同样的 `blur(26px) saturate(170%)` 与上下渐变，配 `isolation: isolate` 兜住负 z-index），
+  列本体不再带 filter。macOS / 浏览器版规则不变，展开始终是同一块玻璃。
+
 ## [0.1.0] - 2026-10-24
 
 首个公开版本。

@@ -1,6 +1,6 @@
 {
   "name": "@local/glass-skin",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Clear glass skin for the Harness Web UI: aurora or a chosen image canvas, translucent panes, one hairline",
   "repository": {
