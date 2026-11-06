@@ -155,12 +155,18 @@ window.__ModuleLoader__.load({
     const KEY_TINT = 'glass-skin:tint';
     const KEY_LEFT_PANEL = 'glass-skin:left-panel';
     const KEY_RIGHT_PANEL = 'glass-skin:right-panel';
+    const KEY_EDGE = 'glass-skin:edge';
     const STORAGE_LIMIT = 3800000;
     const TINT_MIN = 0;
     const TINT_MAX = 80;
     const PANEL_MIN = 0;
     const PANEL_MAX = 100;
     const PANEL_DEFAULT = 20;
+    /* One knob scales every glass edge (hairline ring + top sheen). 100 % is the
+       designed value; the range allows tuning both down to nothing and up. */
+    const EDGE_MIN = 0;
+    const EDGE_MAX = 150;
+    const EDGE_DEFAULT = 100;
 
     function clamp(value, min, max) {
       if (!Number.isFinite(value)) return min;
@@ -197,6 +203,7 @@ window.__ModuleLoader__.load({
       tint: readNumber(KEY_TINT, 44, TINT_MIN, TINT_MAX),
       leftPanel: readNumber(KEY_LEFT_PANEL, PANEL_DEFAULT, PANEL_MIN, PANEL_MAX),
       rightPanel: readNumber(KEY_RIGHT_PANEL, PANEL_DEFAULT, PANEL_MIN, PANEL_MAX),
+      edge: readNumber(KEY_EDGE, EDGE_DEFAULT, EDGE_MIN, EDGE_MAX),
     };
     let imageTransient = false;
     const canvasListeners = new Set();
@@ -242,6 +249,13 @@ window.__ModuleLoader__.load({
       canvas = side === 'left'
         ? { ...canvas, leftPanel: panel }
         : { ...canvas, rightPanel: panel };
+      emitCanvas();
+    }
+
+    function setEdge(value) {
+      const edge = clamp(value, EDGE_MIN, EDGE_MAX);
+      writeText(KEY_EDGE, String(edge));
+      canvas = { ...canvas, edge };
       emitCanvas();
     }
 
@@ -309,6 +323,17 @@ window.__ModuleLoader__.load({
   --glass-right-top: rgba(255, 255, 255, 0.52);
   --glass-right-bottom: rgba(255, 255, 255, 0.34);
   --glass-panel-line: 0.75;
+  /* Glass edge, one pair per material: the hairline ring and the top sheen.
+     The settings page scales all eight from one 0-150 % knob, so these are the
+     design values the knob scales. */
+  --glass-card-ring: 0.50;
+  --glass-card-sheen: 0.70;
+  --glass-bubble-ring: 0.55;
+  --glass-bubble-sheen: 0.75;
+  --glass-step-ring: 0.60;
+  --glass-step-sheen: 0.80;
+  --glass-chip-ring: 0.66;
+  --glass-chip-sheen: 0.85;
   --glass-chip-top: rgba(255, 255, 255, 0.55);
   --glass-chip-bottom: rgba(255, 255, 255, 0.32);
   --glass-chip-top-hover: rgba(255, 255, 255, 0.68);
@@ -326,6 +351,14 @@ body[data-ds-dark-theme] {
   --glass-right-top: rgba(8, 11, 18, 0.50);
   --glass-right-bottom: rgba(8, 11, 18, 0.34);
   --glass-panel-line-dark: 0.14;
+  --glass-card-ring: 0.07;
+  --glass-card-sheen: 0.10;
+  --glass-bubble-ring: 0.10;
+  --glass-bubble-sheen: 0.14;
+  --glass-step-ring: 0.12;
+  --glass-step-sheen: 0.14;
+  --glass-chip-ring: 0.14;
+  --glass-chip-sheen: 0.16;
   --glass-chip-top: rgba(8, 11, 18, 0.52);
   --glass-chip-bottom: rgba(8, 11, 18, 0.34);
   --glass-chip-top-hover: rgba(8, 11, 18, 0.62);
@@ -500,14 +533,14 @@ body [class*='_composerSeat'] [class*='_card'] {
   -webkit-backdrop-filter: blur(22px) saturate(165%);
   backdrop-filter: blur(22px) saturate(165%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.70),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, var(--glass-card-sheen, 0.70)),
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--glass-card-ring, 0.50)),
     0 24px 48px -22px rgba(15, 32, 66, 0.28) !important;
 }
 body[data-ds-dark-theme] [class*='_composerSeat'] [class*='_card'] {
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.10),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, var(--glass-card-sheen, 0.10)),
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--glass-card-ring, 0.07)),
     0 24px 48px -22px rgba(0, 0, 0, 0.62) !important;
 }
 
@@ -519,14 +552,14 @@ body [class*='_bubble'] {
   -webkit-backdrop-filter: blur(18px) saturate(170%);
   backdrop-filter: blur(18px) saturate(170%);
   box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.55),
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--glass-bubble-ring, 0.55)),
+    inset 0 1px 0 rgba(255, 255, 255, var(--glass-bubble-sheen, 0.75)),
     0 10px 22px -14px rgba(15, 32, 66, 0.25);
 }
 body[data-ds-dark-theme] [class*='_bubble'] {
   box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.10),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--glass-bubble-ring, 0.10)),
+    inset 0 1px 0 rgba(255, 255, 255, var(--glass-bubble-sheen, 0.14)),
     0 10px 22px -14px rgba(0, 0, 0, 0.55);
 }
 [data-chat-flow-kind='assistant-step'] {
@@ -536,15 +569,15 @@ body[data-ds-dark-theme] [class*='_bubble'] {
   border-radius: var(--dsw-radius-lg);
   padding: 14px 16px;
   box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.60),
-    inset 0 1px 0 rgba(255, 255, 255, 0.80),
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--glass-step-ring, 0.60)),
+    inset 0 1px 0 rgba(255, 255, 255, var(--glass-step-sheen, 0.80)),
     0 14px 28px -22px rgba(15, 32, 66, 0.30);
 }
 body[data-ds-dark-theme] [data-chat-flow-kind='assistant-step'] {
   background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.04));
   box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--glass-step-ring, 0.12)),
+    inset 0 1px 0 rgba(255, 255, 255, var(--glass-step-sheen, 0.14)),
     0 14px 30px -22px rgba(0, 0, 0, 0.55);
 }
 
@@ -634,8 +667,8 @@ body :is(
   backdrop-filter: blur(20px) saturate(175%);
   background-image: linear-gradient(180deg, var(--glass-chip-top, rgba(255, 255, 255, 0.55)), var(--glass-chip-bottom, rgba(255, 255, 255, 0.32)));
   box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.66),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--glass-chip-ring, 0.66)),
+    inset 0 1px 0 rgba(255, 255, 255, var(--glass-chip-sheen, 0.85)),
     0 8px 20px -14px rgba(15, 32, 66, 0.30);
   border-radius: var(--dsw-radius-sm);
 }
@@ -654,8 +687,8 @@ body[data-ds-dark-theme] :is(
   [class*='_header'] button
 ) {
   box-shadow:
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--glass-chip-ring, 0.14)),
+    inset 0 1px 0 rgba(255, 255, 255, var(--glass-chip-sheen, 0.16)),
     0 10px 24px -16px rgba(0, 0, 0, 0.55);
 }
 
@@ -738,6 +771,47 @@ body[data-ds-dark-theme] :has(> [data-slot='main']):not(:has([data-slot='main.co
       return [color(raw), color(raw * 0.65)];
     }
 
+    /**
+     * Glass edge strength. One stored 0-150 % knob scales every hairline ring
+     * and top sheen from the design values baked into the static stylesheet.
+     * Each scheme keeps its own base alpha (a dark pane needs a fraction of the
+     * white a light one needs to read as the same material), so one curve works
+     * for both.
+     */
+    const EDGE_DESIGN = {
+      light: {
+        cardRing: 0.50, cardSheen: 0.70,
+        bubbleRing: 0.55, bubbleSheen: 0.75,
+        stepRing: 0.60, stepSheen: 0.80,
+        chipRing: 0.66, chipSheen: 0.85,
+      },
+      dark: {
+        cardRing: 0.07, cardSheen: 0.10,
+        bubbleRing: 0.10, bubbleSheen: 0.14,
+        stepRing: 0.12, stepSheen: 0.14,
+        chipRing: 0.14, chipSheen: 0.16,
+      },
+    };
+    const EDGE_VARS = [
+      ['card-ring', 'cardRing'],
+      ['card-sheen', 'cardSheen'],
+      ['bubble-ring', 'bubbleRing'],
+      ['bubble-sheen', 'bubbleSheen'],
+      ['step-ring', 'stepRing'],
+      ['step-sheen', 'stepSheen'],
+      ['chip-ring', 'chipRing'],
+      ['chip-sheen', 'chipSheen'],
+    ];
+
+    /** The edge variables for one scheme at the stored strength. */
+    function edgeStops(value, scheme) {
+      const scale = value / 100;
+      const design = EDGE_DESIGN[scheme];
+      return EDGE_VARS
+        .map(([name, key]) => ' --glass-' + name + ': ' + Math.min(1, design[key] * scale).toFixed(3) + ';')
+        .join('');
+    }
+
     /** The stylesheet plus the rules that follow the stored values. */
     function GlassSkinStyle() {
       const state = useCanvas();
@@ -752,12 +826,14 @@ body[data-ds-dark-theme] :has(> [data-slot='main']):not(:has([data-slot='main.co
         ' --glass-left-bottom: ' + leftBottomLight + ';' +
         ' --glass-right-top: ' + rightTopLight + ';' +
         ' --glass-right-bottom: ' + rightBottomLight + ';' +
+        edgeStops(state.edge, 'light') +
         ' }' +
         ' body[data-ds-dark-theme] {' +
         ' --glass-left-top: ' + leftTopDark + ';' +
         ' --glass-left-bottom: ' + leftBottomDark + ';' +
         ' --glass-right-top: ' + rightTopDark + ';' +
         ' --glass-right-bottom: ' + rightBottomDark + ';' +
+        edgeStops(state.edge, 'dark') +
         ' }';
 
       if (state.image !== '') {
@@ -888,6 +964,23 @@ body[data-ds-dark-theme] :has(> [data-slot='main']):not(:has([data-slot='main.co
         slider(t('leftPanel'), state.leftPanel, (value) => { setPanel('left', value); }),
         slider(t('rightPanel'), state.rightPanel, (value) => { setPanel('right', value); }));
 
+      const edgeGroup = h('div', { className: 'gs-group' },
+        h('div', { className: 'gs-groupTitle' }, t('edgeTitle')),
+        h('div', { className: 'gs-groupHint' }, t('edgeHint')),
+        h('div', { className: 'gs-row' },
+          h('label', { className: 'gs-slider' },
+            h('span', null, t('edge')),
+            h('input', {
+              type: 'range',
+              min: EDGE_MIN,
+              max: EDGE_MAX,
+              step: 1,
+              value: state.edge,
+              'aria-label': t('edge'),
+              onChange: (event) => { setEdge(Number(event.target.value)); },
+            }),
+            h('span', { className: 'gs-value' }, state.edge + '%'))));
+
       const appearanceGroup = h('div', { className: 'gs-group' },
         h('div', { className: 'gs-groupTitle' }, t('appearanceTitle')),
         h('div', { className: 'gs-groupHint' }, t('appearanceHint')),
@@ -914,6 +1007,7 @@ body[data-ds-dark-theme] :has(> [data-slot='main']):not(:has([data-slot='main.co
           imageRow,
           note === '' ? null : h('div', { className: 'gs-note' }, note)),
         panelGroup,
+        edgeGroup,
         tintGroup);
     }
 
@@ -945,6 +1039,9 @@ body[data-ds-dark-theme] :has(> [data-slot='main']):not(:has([data-slot='main.co
         panelHint: 'How strong the glass is on an expanded left or right sidebar; collapsed rails stay transparent.',
         leftPanel: 'Left sidebar',
         rightPanel: 'Right sidebar',
+        edgeTitle: 'Edge highlight',
+        edgeHint: 'The hairline ring and top sheen on glass cards, bubbles and controls. 100 % is the designed value; 0 % removes them, above 100 % makes them brighter.',
+        edge: 'Edges',
         invalid: 'That does not look like an image. Use http://, https:// or choose a file.',
         tooLarge: 'Image too large — it applies now but will not survive a reload.',
       },
@@ -969,6 +1066,9 @@ body[data-ds-dark-theme] :has(> [data-slot='main']):not(:has([data-slot='main.co
         panelHint: '左右侧边栏展开时玻璃的强度；收起后保持透明。',
         leftPanel: '左侧栏',
         rightPanel: '右侧栏',
+        edgeTitle: '边缘高光',
+        edgeHint: '玻璃卡片、气泡与控件上的发丝描边和顶部亮线。100% 是设计值，0% 完全去掉，超过 100% 会更亮。',
+        edge: '边缘高光',
         invalid: '这不像图片，请用 http://、https:// 或直接选择文件。',
         tooLarge: '图片较大，本次生效但刷新后不会保留。',
       },
