@@ -1,7 +1,7 @@
 # glass-skin — Harness Web UI 透明玻璃皮肤
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![version](https://img.shields.io/badge/version-0.2.0-blue)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.2.1-blue)](CHANGELOG.md)
 [![GitHub](https://img.shields.io/badge/github-abyss2021%2Fdsh--glass--skin-181717)](https://github.com/abyss2021/dsh-glass-skin)
 [![DSH](https://img.shields.io/badge/DSH-0.2.1--rc.2-4c6ef5)](#兼容性)
 [![Build](https://img.shields.io/badge/build-none-success)](#开发)
@@ -74,7 +74,7 @@ dsh plugin --profile web add /path/to/glass-skin   # 目录链接，改 client.j
 | 恢复渐变 | 清空壁纸，回到内置极光 |
 | 浓度 | 色调层 0–80%，默认 44（`glass-skin:tint`）；照片太亮、看不清字就往上调 |
 | 展开的侧边栏 | 左 / 右各 0–100%，默认 20（`glass-skin:left-panel` / `glass-skin:right-panel`） |
-| 边缘高光 | 卡片、气泡与控件的发丝描边 + 顶部亮线，0–150%，默认 100（`glass-skin:edge`）；嫌边缘发亮就往下调，0 等于完全没有 |
+| 边缘高光 | 卡片、气泡与控件的发丝描边 + 顶部亮线，0–150%，默认 50（`glass-skin:edge`）；嫌边缘发亮就往下调，0 等于完全没有 |
 
 - 选中图片后画布**不再漂移并铺满视口**（`inset: 0` + `background-size: cover`），四边齐平，不会在边缘露出极光或色调。
 - data URL 超过约 3.8MB 时不写 localStorage，只在本次会话生效，刷新后回到渐变。
@@ -137,7 +137,7 @@ dsh plugin --profile web add /path/to/glass-skin   # 目录链接，改 client.j
 | 新会话恢复实底 / 换悬停色 | 第 8b 段；悬停色改 `:hover` 里的 `--dsw-alias-interactive-bg-hover` |
 | 整页工具页浓度 | 默认跟随「展开的侧边栏 → 左侧」；单独调就设 `--glass-main-top` / `--glass-main-bottom` |
 | 换背景图 | 设置页（或 localStorage `glass-skin:wallpaper`） |
-| 边缘高光强弱 | 设置页的「边缘高光」滑杆（0–150%，100% 为设计值）；想改设计基线就动 `CSS` 里 `--glass-{card,bubble,step,chip}-{ring,sheen}` 的默认值 |
+| 边缘高光强弱 | 设置页的「边缘高光」滑杆（0–150%，100% 为设计值，默认 50%）；想改设计基线就动 `CSS` 里 `--glass-{card,bubble,step,chip}-{ring,sheen}` 的默认值 |
 
 ## 兼容性
 
@@ -171,7 +171,7 @@ node --check client.js     # 语法检查
 
 ## 版本与变更
 
-当前版本 **0.2.0**。版本号遵循语义化版本：`0.x` 期间，适配 DSH 上游的改动按 `MINOR` 发布、修复走
+当前版本 **0.2.1**。版本号遵循语义化版本：`0.x` 期间，适配 DSH 上游的改动按 `MINOR` 发布、修复走
 `PATCH`；兼容基线与发布流程见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 许可

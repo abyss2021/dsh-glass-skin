@@ -163,10 +163,13 @@ window.__ModuleLoader__.load({
     const PANEL_MAX = 100;
     const PANEL_DEFAULT = 20;
     /* One knob scales every glass edge (hairline ring + top sheen). 100 % is the
-       designed value; the range allows tuning both down to nothing and up. */
+       designed value — the alphas baked into the stylesheet — and 50 % is the
+       shipped default: on a dark, near-transparent card a full-strength rim reads
+       as a glowing outline rather than a glass edge. The range still allows going
+       back to 0 and up past the designed value. */
     const EDGE_MIN = 0;
     const EDGE_MAX = 150;
-    const EDGE_DEFAULT = 100;
+    const EDGE_DEFAULT = 50;
 
     function clamp(value, min, max) {
       if (!Number.isFinite(value)) return min;
@@ -1040,7 +1043,7 @@ body[data-ds-dark-theme] :has(> [data-slot='main']):not(:has([data-slot='main.co
         leftPanel: 'Left sidebar',
         rightPanel: 'Right sidebar',
         edgeTitle: 'Edge highlight',
-        edgeHint: 'The hairline ring and top sheen on glass cards, bubbles and controls. 100 % is the designed value; 0 % removes them, above 100 % makes them brighter.',
+        edgeHint: 'The hairline ring and top sheen on glass cards, bubbles and controls. 100 % is the designed value and 50 % is the default; 0 % removes them.',
         edge: 'Edges',
         invalid: 'That does not look like an image. Use http://, https:// or choose a file.',
         tooLarge: 'Image too large — it applies now but will not survive a reload.',
@@ -1067,7 +1070,7 @@ body[data-ds-dark-theme] :has(> [data-slot='main']):not(:has([data-slot='main.co
         leftPanel: '左侧栏',
         rightPanel: '右侧栏',
         edgeTitle: '边缘高光',
-        edgeHint: '玻璃卡片、气泡与控件上的发丝描边和顶部亮线。100% 是设计值，0% 完全去掉，超过 100% 会更亮。',
+        edgeHint: '玻璃卡片、气泡与控件上的发丝描边和顶部亮线。100% 是设计值，默认 50%；0% 完全去掉。',
         edge: '边缘高光',
         invalid: '这不像图片，请用 http://、https:// 或直接选择文件。',
         tooLarge: '图片较大，本次生效但刷新后不会保留。',
