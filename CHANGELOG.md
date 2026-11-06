@@ -24,6 +24,18 @@
 
 （暂无）
 
+## [0.3.0] - 2026-11-06
+
+### 变更
+
+- **包名从 `@local/glass-skin` 改为 `dsh-glass-skin`**。`@local` 不是任何人能持有的 npm
+  scope，任何第三方都可以发同名包，装谁的完全取决于解析顺序；`dsh-glass-skin` 是无 scope 名，
+  与仓库同名，也不会占用别人的命名空间。改动涉及四处：`package.json` 的 `name`、
+  `cordis.patch.yml` 的 `name`、`client.js` 的模块 `id`、以及文档里的安装 / 卸载命令。
+- **升级方式**：`dsh plugin --profile web remove @local/glass-skin` 再
+  `dsh plugin --profile web add github:abyss2021/dsh-glass-skin`。`localStorage` 的键
+  （`glass-skin:*`）没有改，壁纸、浓度、边缘高光等设置都还在。
+
 ## [0.2.2] - 2026-11-06
 
 ### 新增

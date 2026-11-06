@@ -16,7 +16,7 @@
  * region, which shows a seam at each boundary; one tone layer cannot.
  */
 window.__ModuleLoader__.load({
-  id: '@local/glass-skin',
+  id: 'dsh-glass-skin',
   factory(require) {
     const React = require('react');
     const h = React.createElement;

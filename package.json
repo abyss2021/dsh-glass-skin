@@ -1,6 +1,6 @@
 {
-  "name": "@local/glass-skin",
-  "version": "0.2.2",
+  "name": "dsh-glass-skin",
+  "version": "0.3.0",
   "description": "Clear glass skin for the Harness Web UI: aurora or a chosen image canvas, translucent panes, one hairline",
   "repository": {
     "type": "git",
