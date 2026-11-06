@@ -1,7 +1,6 @@
 {
   "name": "@local/glass-skin",
-  "version": "0.2.1",
-  "private": true,
+  "version": "0.2.2",
   "description": "Clear glass skin for the Harness Web UI: aurora or a chosen image canvas, translucent panes, one hairline",
   "repository": {
     "type": "git",
@@ -21,6 +20,10 @@
   ],
   "author": "abyss2021",
   "type": "module",
+  "engines": {
+    "node": ">=20",
+    "dsh": ">=0.2.1-0 <0.3.0-0"
+  },
   "exports": {
     ".": "./index.js",
     "./client": "./client.js",
@@ -35,7 +38,8 @@
     "icon.svg",
     "README.md",
     "LICENSE",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "docs/*.md"
   ],
   "dsh": {
     "bundle": {
@@ -47,6 +51,16 @@
       "inject": [
         "@deepseek-ai/dsh-client-ui-theme"
       ]
+    },
+    "compatibility": {
+      "dsh": "0.2.1-rc.2",
+      "profiles": [
+        "web"
+      ],
+      "dshReleases": {
+        "0.2.1-rc.2": "compatible",
+        "0.2.2-rc.1": "compatible"
+      }
     }
   },
   "license": "MIT"

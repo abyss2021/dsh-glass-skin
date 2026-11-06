@@ -1,7 +1,7 @@
 # glass-skin — Harness Web UI 透明玻璃皮肤
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![version](https://img.shields.io/badge/version-0.2.1-blue)](CHANGELOG.md)
+[![version](https://img.shields.io/badge/version-0.2.2-blue)](CHANGELOG.md)
 [![GitHub](https://img.shields.io/badge/github-abyss2021%2Fdsh--glass--skin-181717)](https://github.com/abyss2021/dsh-glass-skin)
 [![DSH](https://img.shields.io/badge/DSH-0.2.1--rc.2-4c6ef5)](#兼容性)
 [![Build](https://img.shields.io/badge/build-none-success)](#开发)
@@ -141,10 +141,21 @@ dsh plugin --profile web add /path/to/glass-skin   # 目录链接，改 client.j
 
 ## 兼容性
 
-- **DSH**：在 `0.2.1-rc.2` 上开发验证；只使用稳定的 `ctx.theme.overrideTokens` / `ctx.theme.setTheme`、`ctx.slots.register/inject`、`ctx.locale.register`、`ctx.on('theme/change')` 接口。
+兼容范围声明在 `package.json` 里，工具链直接读它，不必翻文档：
+
+| 字段 | 值 | 含义 |
+| --- | --- | --- |
+| `engines.node` | `>=20` | 最低 Node |
+| `engines.dsh` | `>=0.2.1-0 <0.3.0-0` | 支持的 DSH 版本区间 |
+| `dsh.compatibility.dsh` | `0.2.1-rc.2` | 开发与验证基线 |
+| `dsh.compatibility.profiles` | `["web"]` | 只适用于带 Web 界面的 profile |
+| `dsh.compatibility.dshReleases` | `0.2.1-rc.2` / `0.2.2-rc.1` | 逐版本实测结果 |
+
+- **DSH**：在 `0.2.1-rc.2` 上开发验证，`0.2.2-rc.1` 复测通过；只使用稳定的 `ctx.theme.overrideTokens` / `ctx.theme.setTheme`、`ctx.slots.register/inject`、`ctx.locale.register`、`ctx.on('theme/change')` 接口。
 - **上游耦合**：类名子串选择器（`_sidebarCol`、`_composerSeat`、`_card`、`_bubble`、`_newSession`）和插槽锚点（`data-slot='main'` / `data-slot='main.conversation'`）。上游重命名时对应特效会静默失效（不报错、不白屏），按新名字改子串即可。
 - **性能**：blur 只用在弹层、对话框、输入框卡片、消息气泡四处；低配机掉帧时优先去掉气泡那条。
 - **降级**：`prefers-reduced-motion` 停漂移，`prefers-reduced-transparency` 撤壁纸与 blur。
+- **安装 / 启动 / 卸载证据**：见 [docs/verification.md](docs/verification.md)（一次性 profile 上的完整实测记录）。
 
 ## 项目结构
 
@@ -155,7 +166,7 @@ glass-skin/
 ├── index.js              # Host 半侧（空的 apply，皮肤全在客户端）
 ├── client.js             # Client 半侧：token + 样式表 + 设置页
 ├── locale/{zh,en}.json   # 展示用元数据
-├── docs/                 # 效果图
+├── docs/                 # 效果图 + 验证记录
 ├── icon.svg
 └── README.md / CHANGELOG.md / LICENSE
 ```
@@ -171,7 +182,7 @@ node --check client.js     # 语法检查
 
 ## 版本与变更
 
-当前版本 **0.2.1**。版本号遵循语义化版本：`0.x` 期间，适配 DSH 上游的改动按 `MINOR` 发布、修复走
+当前版本 **0.2.2**。版本号遵循语义化版本：`0.x` 期间，适配 DSH 上游的改动按 `MINOR` 发布、修复走
 `PATCH`；兼容基线与发布流程见 [CHANGELOG.md](CHANGELOG.md)。
 
 ## 许可

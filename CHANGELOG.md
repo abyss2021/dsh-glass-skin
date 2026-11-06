@@ -24,6 +24,20 @@
 
 （暂无）
 
+## [0.2.2] - 2026-11-06
+
+### 新增
+
+- **manifest 声明兼容范围**：`engines.node`（`>=20`）与 `engines.dsh`（`>=0.2.1-0 <0.3.0-0`），
+  外加 `dsh.compatibility`（`dsh: 0.2.1-rc.2`、`profiles: ["web"]`、以及逐版本分级的
+  `dshReleases`）。之前只有 README 里的文字说明，工具链读不到，自动收录因此判为「未声明
+  兼容范围」；现在 `package.json` 自己就能回答这两个问题。
+
+### 变更
+
+- 去掉 `"private": true`。它原本只是挡住误发 npm，但会让自动收录把包当成非发布物。
+- `files` 增加 `docs/*.md`，让 `docs/verification.md` 随包分发。
+
 ## [0.2.1] - 2026-11-06
 
 ### 变更
