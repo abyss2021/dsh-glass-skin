@@ -24,6 +24,17 @@
 
 （暂无）
 
+## [0.3.2] - 2026-11-07
+
+### 修复
+
+- **Bundle Patch 的 DSH 行 id 改为 `dsh-glass-skin`**（原 `glass-skin`）。DSH STORE
+  的上架预检按「入口 ID 全局唯一」判冲突：目录里那条旧的 `glass-skin` 条目（`packageName`
+  还是 `@local/glass-skin`、钉在 `ef3e9c6`、状态 `blocked`）仍然占着入口 ID `glass-skin`，
+  因此改名后的新提交被判 `SUBMISSION_ENTRY_COLLISION` 而拒绝：
+  `DSH entry ID glass-skin is already owned by glass-skin`。行 id 与包名对齐后不再冲突。
+  该 id 只出现在 `cordis.patch.yml` 里，插件没有配置项，所以不涉及用户配置迁移。
+
 ## [0.3.1] - 2026-11-06
 
 ### 变更

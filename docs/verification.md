@@ -49,7 +49,7 @@ Done in 490ms using pnpm v11.28.5
 ] } }
 ```
 
-同时 `cordis.patch.yml` 被正确读取，服务端组出的插件行是 `id: glass-skin`。
+同时 `cordis.patch.yml` 被正确读取，服务端组出的插件行是 `id: dsh-glass-skin`。
 
 ## 2. 启动（start）
 
